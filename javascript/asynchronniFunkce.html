@@ -11,14 +11,36 @@
     //document.write(mojeFunkce('Prepis')); 
     // vrati "Prepis"
 
-    document.write(mojeFunkce("Ahoj ",(param) => {
+    /*document.write(mojeFunkce("Ahoj ",(param) => {
       return param+" world!" ;
-    })); 
+    })); */
     // měl by vrátit "Hello world"
 
-    function mojeFunkce(x,funkce) {
+    /*function mojeFunkce(x,funkce) {
       return "nejlépe"+funkce(x);
+    }*/
+
+
+
+    document.write(mojeFunkce2((param)=>{
+      return param+" + definováno v asynchronní funkci<br/>";
+    }))
+    // vrací "definice funkce ve funkci + definováno v asynchronní funkci"
+    
+    document.write(mojeFunkce2());
+    // vrací "definovano ve funkci jako default"
+
+    document.write(mojeFunkce2("definováno v parametru<br/>"));
+    // vrací "definováno v parametru"
+
+    /** funkce které je možno do parametru vložit asynchronní funkci */
+    function mojeFunkce2(funkce="definovano ve funkci jako default<br/>") {
+      if (typeof funkce==="function") 
+        return funkce("definice funkce ve funkci"); //magie
+      else
+        return funkce;
     }
+
   </script>
 </body>
 </html>
