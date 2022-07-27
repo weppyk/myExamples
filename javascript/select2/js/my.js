@@ -20,16 +20,40 @@ $(document).ready(function() {
     data: data
   })
 
-  //AJAX
+  //AJAX simple
+  $(".js-data-example-ajax-simple").select2({
+    ajax:{
+      url: "https://api.github.com/search/repositories",
+      dataType: 'json',
+      delay: 250,
+      /*data: (params) => {
+        return {
+          q: params.term,
+        }
+      },*/
+      processResults: (data, params) => {
+        const results = data.items.map(item => {
+          return {
+            id: item.id,
+            text: item.full_name || item.name,
+          };
+        });
+        return {
+          results: results,
+        }
+      },
+    }
+  });
+  //AJAX hard
   $(".js-data-example-ajax").select2({
     ajax: {
       url: "https://api.github.com/search/repositories",
       dataType: 'json',
       delay: 250,
-      data: function (params) {
+      data: (params) => {
         return {
           q: params.term, // search term
-          page: params.page
+          page: params.page //strankovací request
         };
       },
       processResults: function (data, params) {
@@ -48,10 +72,44 @@ $(document).ready(function() {
       },
       cache: true
     },
-    escapeMarkup: function (markup) { return markup; }, // let our custom formatter work
+    placeholder: 'Search for a repository',
     minimumInputLength: 1,
-    templateResult: formatRepo, // omitted for brevity, see the source of this page
-    templateSelection: formatRepoSelection // omitted for brevity, see the source of this page
+    templateResult: formatRepo,
+    templateSelection: formatRepoSelection
   });
+  
+  function formatRepo (repo) {
+    if (repo.loading) {
+      return repo.text;
+    }
+  
+    var $container = $(
+      "<div class='select2-result-repository clearfix'>" +
+        "<div class='select2-result-repository__avatar'><img src='" + repo.owner.avatar_url + "' /></div>" +
+        "<div class='select2-result-repository__meta'>" +
+          "<div class='select2-result-repository__title'></div>" +
+          "<div class='select2-result-repository__description'></div>" +
+          "<div class='select2-result-repository__statistics'>" +
+            "<div class='select2-result-repository__forks'><i class='fa fa-flash'></i> </div>" +
+            "<div class='select2-result-repository__stargazers'><i class='fa fa-star'></i> </div>" +
+            "<div class='select2-result-repository__watchers'><i class='fa fa-eye'></i> </div>" +
+          "</div>" +
+        "</div>" +
+      "</div>"
+    );
+  
+    $container.find(".select2-result-repository__title").text(repo.full_name);
+    $container.find(".select2-result-repository__description").text(repo.description);
+    $container.find(".select2-result-repository__forks").append(repo.forks_count + " Forks");
+    $container.find(".select2-result-repository__stargazers").append(repo.stargazers_count + " Stars");
+    $container.find(".select2-result-repository__watchers").append(repo.watchers_count + " Watchers");
+  
+    return $container;
+  }
+  
+  function formatRepoSelection (repo) {
+    return repo.full_name || repo.text;
+  }
+
 
 });

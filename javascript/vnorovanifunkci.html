@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="cs-CZ">
+  <head>
+    <meta charset="UTF-8">
+    <title></title>
+  </head>
+  <body>
+    <script>
+      var Arr = [2,3,4,5];
+      
+      function myCallback(x){
+      return x+1;
+      }
+      
+      console.log(Arr.mapa(function(x){ return myCallback(x+2)}));
+      function mapa(x, in_min, in_max, out_min, out_max) {
+        return (x - in_min) * (out_max - out_min) / (in_max - in_min) + out_min;
+      }
+      
+    </script>
+  </body>
+</html>

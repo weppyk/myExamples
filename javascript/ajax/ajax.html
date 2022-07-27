@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="cs-CZ">
+  <head>
+    <meta charset="UTF-8">
+    <title></title>
+  </head>
+  <body>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script>
+      var jqRequest = {
+        url: "https://api.github.com/repos/rails/rails",
+        type: "GET",
+        dataType: "json", //expected format of response
+        beforeSend: ( jqXHR )=> {
+          jqXHR.overrideMimeType( "text/plain; charset=cs-CZ" );
+          jqXHR.ahoj="predPoslanim";
+          console.log(jqXHR);
+        }
+      }
+      
+      $.ajax(jqRequest)
+        .done((data, textStatus, jqXHR)=> {
+          jqXHR.ahoj="hotovo";
+          console.log(data);
+          console.log(jqXHR);
+          console.log(textStatus);
+      
+        }).fail(function (jqXHR, textStatus, errorThrown) {
+          console.log('The AJAX request could not be completed!');
+        }).always(function () {
+          console.log('The request completed, one way or another.');
+        });
+        
+    </script>
+  </body>
+</html>
