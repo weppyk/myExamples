@@ -16,10 +16,6 @@
     })); */
     // měl by vrátit "Hello world"
 
-    /*function mojeFunkce(x,funkce) {
-      return "nejlépe"+funkce(x);
-    }*/
-
 
 
     document.write(mojeFunkce2((param)=>{
@@ -39,6 +35,10 @@
         return funkce("definice funkce ve funkci"); //magie
       else
         return funkce;
+    }
+    /** funkce které je možno do parametru vložit asynchronní funkci a současně ji předat parametr x*/
+    function mojeFunkce(x,funkce) {
+      return "nejlépe"+funkce(x);
     }
 
   </script>
