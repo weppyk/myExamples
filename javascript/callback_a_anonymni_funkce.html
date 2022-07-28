@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="cs-CZ">
+<head>
+  <meta charset="utf-8">
+</head>
+<body>
+  <script>
+    //TODO: nastudovat http://visionplus.cz/tutorialy/async-javascript.php
+
+    document.write(mojeFunkce2((param)=>{
+      return param+" + definováno v asynchronní funkci<br/>";
+    }))
+    // vrací "definice funkce ve funkci + definováno v anonymní funkci"
+    
+    document.write(mojeFunkce2());
+    // vrací "definovano ve funkci jako default"
+
+    document.write(mojeFunkce2("definováno v parametru<br/>"));
+    // vrací "definováno v parametru"
+
+    /** funkce které je možno do parametru vložit anonymní funkci */
+    function mojeFunkce2(funkce="definovano ve funkci jako default<br/>") {
+      if (typeof funkce==="function") 
+        return funkce("definice funkce ve funkci"); //magie
+      else
+        return funkce;
+    }
+    /** funkce které je možno do parametru vložit anonymní funkci a současně ji předat parametr x*/
+    function callbackFunkce(x,callback) {
+      return "nejlépe"+callback(x);
+    }
+
+    //callback funkce
+    function myCallback(callback){
+      return callback("callback");
+    }
+    //anonymní funkce se zavorkama
+    document.write(myCallback((x)=>{ //zavorky
+      return "se závorkama "+x+" + definováno v anonymní funkci<br/>";
+    }));
+    
+    //anonymní funkce se bez závorek
+    document.write(myCallback(x=>{ //bez závorek
+      return "bez závorek "+x+" + definováno v anonymní funkci<br/>";
+    }));
+    //anonymní funkce s pouzitim function
+    document.write(myCallback(function (x){ //s pouzitim function
+      return "s pouzitim function "+x+" + definováno v anonymní funkci<br/>";
+    }));
+
+  </script>
+</body>
+</html>
