@@ -1,0 +1,79 @@
+@import "partials/variables";
+@import "partials/mixins";
+/* 
+ ==== víceřádkový komentář ====
+*/
+// komentář na jednom řádku
+
+
+
+h1 {
+    @include big-text;
+    color: $main-color;
+}
+
+p {
+    @include rounded-corners($radius: 15px); //použití mixinu s konkretnim parametrem
+    @include shadow(0 0 10px rgb(44, 40, 40), 10px 10px 5px rgb(114, 112, 112));
+    color: $main-color;
+    font-size: $font-size;
+    padding: 6px;
+}
+
+header {
+    @include rounded-corners;
+    height: $header-height;
+    background-color: $ternary-color;
+}
+
+footer {
+    height: $footer-height;
+    background-color: $ternary-color;
+}
+body {
+    background-color: $background-color;
+}
+
+.alert-button {
+    @include myButton();
+    padding: 5px 10px;
+}
+
+.bigger-button {
+    @include myButton();
+    @include big-text;
+    padding: 10px 30px;
+}
+
+.rounded-button {
+    @include myButton();
+
+    padding: 10px 30px;
+}
+
+// =========== NESTING & ===========
+.first-list {
+    font-size: 15px;
+    font-family:  Geneva, Verdana, sans-serif;
+
+    li {
+        @include shadow(3px 3px 3px rgb(133, 128, 128));
+        padding: 10px;
+        background-color: $secondary-color;
+        margin: 5px;
+        border-radius: 10px;
+        color: white;
+
+        a {
+            color: white;
+            text-decoration: none;
+            &:hover { // &:hover je zkratka pro "a:hover"
+                color: darken($ternary-color, 40%);
+                //color: lighten(#6d1d1d, 30%);
+            }
+        }
+    }
+}
+
+// všeobecná mixina
+@include our-links;
