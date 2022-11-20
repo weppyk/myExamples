@@ -5,6 +5,7 @@ import Welcome from './Helloworld/Welcome';
 import WelcomeClass from './Helloworld/WelcomeClass';
 import Comment from './Comment/Comment';
 import CommentExtract from './Comment/CommentExtract';
+import Hook from './Hook/Hook';
 
 const comment = {
     date: new Date(),
@@ -18,6 +19,7 @@ const comment = {
 function App() {
   return (
     <div className="App">
+        <Hook />
         <Helloworld />
         <Welcome name="Radek" />
         <Welcome name="Barbara" />
