@@ -2,6 +2,14 @@ const website = {
     name: "AlgoExpert",
     rating: 5,
     description: " is the best place to learn how to code algorithms.",
+    [Symbol.toPrimitive](hint) {
+        if(hint === "number") {
+            return 5;
+        } else if(hint === "string") {
+            return 'Hello';
+        }
+        return 2;
+    },
     sayHello: () => {
         console.log("Hello");
     },
@@ -17,7 +25,8 @@ const website = {
         this.description = newDescription;
     }
 };
-
+console.log(Number(website));
+console.log(String(website));
 // website.sayHello();
 // website.sayHello2();
 // console.log(website.getDescription);
@@ -74,7 +83,11 @@ Object.assign(myObj, obj); //copy all properties from obj to myObj without __pro
     return "Hello world";
 }*/
 // show all properties of an object including inherited properties and methods, but excluding symbols
-console.log(website.valueOf());
+//console.log(website.valueOf());
+website.valueOf = () => {
+    return 2;
+}
+console.log(website-1);
 
 //****** */
 const frontendExpert = Object.create(website);
