@@ -16,21 +16,26 @@ child.maxAge = 18;
 const child2 = Object.assign(Object.create(person), {
     maxAge: 18
 });
+console.log(child2);
 
 /* 3. another way */
 const child3 = {
     maxAge: 18
 };
+
 // ES6 method to set prototype of object 
 // Browser not optimized yet, in loop could very slow down
 // usually used if create object and never changing again
 Object.setPrototypeOf(child3, person); 
+console.log(child3);
+
 
 /* 4. another way - deprecated - older way*/
 const child4 = {
     maxAge: 18,
     __proto__: person
 }
+console.log(child4);
 
 /* 5. another way  - too complicated, lot of code*/
 const child5 = Object.create(person, {
@@ -41,6 +46,8 @@ const child5 = Object.create(person, {
         configurable: true
     }
 });
+console.log(child5);
+
 
 const john = Object.create(child);
 john.name = 'John';
@@ -48,10 +55,6 @@ john.maxAge = 18;
 console.log(john.maxAge);
 
 console.log(person);
-console.log(child2);
-console.log(child3);
-console.log(child4);
-console.log(child5);
 console.log(john.__proto__.__proto__); // older and faster way to get prototype
 console.log(Object.getPrototypeOf(john)); // recommended way to get prototype
 
@@ -65,7 +68,7 @@ console.log(Object.getOwnPropertyNames(arrayProto));
 console.log(Object.getOwnPropertyNames(stringProto));
 /******************************************************/
 
-/* function constructor */
+/**************** function constructor **************************
 function Person(name){
     console.log('here');
     this.name = name;
@@ -79,6 +82,10 @@ Person.prototype = {
     }
 }
 //Person.prototype.test = 'test';
+Person.prototype.speak = function(){
+    console.log('Hello, I am ' + this.name);
+    console.log(this.isHuman);
+};
 
 const conner = new Person('Conner');
 const clemment = new Person('Clemment');
@@ -86,19 +93,97 @@ const clemment = new Person('Clemment');
 
 conner.__proto__.test = 'test';
 
-console.log(conner);
-console.log(clemment);
-console.log(conner.test);
-console.log(Object.getPrototypeOf(conner)===Object.getPrototypeOf(clemment));
+// console.log(conner);
+// console.log(clemment);
+// console.log(conner.test);
+// console.log(Object.getPrototypeOf(conner)===Object.getPrototypeOf(clemment));
 
+// console.log(conner instanceof Object);
+// console.log(conner instanceof Person);
+// console.log(clemment instanceof Person);
+// Object.setPrototypeOf(conner, Array.prototype);
 
+// conner.speak();
+// clemment.speak();
 // conner.sayHello();
 // console.log(conner.__proto__);
 // console.log(Object.getPrototypeOf(conner));
 
+/***********************************************************************/
 
+/* *********** Polyfill - can use in older browser **********************
+// if (Array.prototype.myPush === undefined)
+// Array.prototype.myPush = function(value){
+if (Array.prototype.push === undefined) {
+    Array.prototype.push = function(value){
+        this[this.length] = value;
+    }
+}
+const arr = [1,2,3];
+//arr.myPush(4);
+arr.push(4);
+console.log(arr);
+/**********************************************************************/
 
+/************ Modern class syntax, Classes are syntactic sugar!!! *******************
+class Person {
+    // static isHuman = true;
+    constructor(name){
+        this.name = name;
+    }
+    // static greet(){
+    //     console.log('Hello');
+    // }
+    speak(){
+        console.log('Hello, I am ' + this.name);
+    }
+    // get getName(){
+    //     return this.name;
+    // }
+    // set setName(name) {
+    //     this.name = name;
+    // }
+}
+// const conner = new Person('Conner');
+// const clement = new Person('Clement');
+// conner.setName = 'Conner2';
+// conner.speak();
+// clement.speak();
+// clement.isHuman = false;
+// console.log(Person.isHuman);
+// console.log(Person.greet());
+// console.log(conner.isHuman);
+// console.log(clement.isHuman);
+/********************************************** */
 
+/* ********** Inheritance *************** */
+class Person {
+    constructor(name){
+        this.name = name;
+    }
+    speak(){
+        console.log('Hello, I am ' + this.name);
+    }
+}
+// child class
+class Programmer extends Person {
+    #language //private field
+    constructor(name, language){
+        super(name);
+        this.#language = language;
+    }
+    code(){
+        console.log('I am coding in ' + this.#language);
+    }
+}
+
+const peter = new Programmer('Peter', 'JavaScript');
+peter.speak();
+peter.code();
+console.log(peter instanceof Person);
+console.log(Person instanceof Function);
+console.log(peter.language); // undefined - language is private
+/********************************************** */
 
 
 /* copilot suggests */
