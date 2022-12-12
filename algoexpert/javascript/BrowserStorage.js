@@ -94,7 +94,7 @@ request.addEventListener('upgradeneeded', event => {
     // 2. create object store
     const store = database.createObjectStore('users', { keyPath: 'id' });
     store.createIndex('name', 'name');
-
+    // 3. add data to object store
     store.add({
         id: 0,
         name: 'Radek',
@@ -106,6 +106,51 @@ request.addEventListener('upgradeneeded', event => {
         course: 'AlgoExpert'
     })
 });
+
+// add data to existing object store
+request.addEventListener('success', event => { // runs whenever connect to database
+    const database = event.target.result;
+    database
+        .transaction('users', 'readwrite')
+        .objectStore('users')
+        .add({
+            id: 2,
+            name: 'Donald',
+            course: 'FrontendExpert'
+        })
+        // 4. delete data from object store
+        //.delete(1);
+});
+
+
+// 5. get data from object store
+
+request.addEventListener('success', event => {
+    const database = event.target.result;
+    const req = database
+        .transaction('users', 'readonly')
+        .objectStore('users')
+        .index('name')
+        .get('Radek');
+        //.get(0);
+    req.addEventListener('success', event => {
+        console.log(event.target.result.name);
+        console.log(event.target.result.course);
+    })
+});
+
+/************ Copilot way **************
+request.addEventListener('success', event => {
+    const database = event.target.result;
+    database
+        .transaction('users', 'readonly')
+        .objectStore('users')
+        .get(0)
+        .onsuccess = event => {
+            console.log(event.target.result);
+        }
+});
+/*********************************** */
 
 
 
