@@ -1,15 +1,35 @@
 import './App.css';
+import { useState } from 'react';
+
 import Comment from './helpers/Comment';
 import EventDrivenProgramming from './helpers/EventDrivenProgramming';
+import State from './helpers/State';
+import SharingStateCounter from './helpers/SharingStateCounter';
+import MyInput from './helpers/MyInput';
+import MyOutput from './helpers/MyOutput';
+import MyInput2 from './helpers/MyInput2';
 
 export default function App() {
+  const [count, setCount] = useState(0);
+  const [value, setValue] = useState('');
   return (
     <>
+      <h1>Change value different components</h1>
+      <MyInput value={value} setValue={setValue} />
+      <MyOutput value={value} />
+      <MyInput2 value={value} setValue={setValue} />
+      
+      <h1>Other using of state</h1>
       <Comment username="Conner" time={(new Date()).toString()}>
         <h1>Hello world</h1>
         <p>This is a comment</p>
       </Comment>
       <EventDrivenProgramming />
+      <State />
+      <SharingStateCounter count={count} setCount={setCount} /> 
+      <SharingStateCounter count={count} setCount={setCount} />
+
+      
     </>
   );
   /******* Fragment ********
