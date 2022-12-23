@@ -21,21 +21,22 @@ function exampleClosure2() {
 let closeX = exampleClosure2();
 closeX(); // 4
 
-/** private function * 
+/** private and public functions */
 function makeFunctions() {
     let privateNum = 0;
 
+    // private function
     function privateIncrement() { // nothing can access this function externally
         privateNum++;
     }
 
+    // public functions
     return {
         logNum:  () => console.log(privateNum),
         incrementNum: () => {
             privateIncrement();
             console.log('Incremented');
         }
-
     }
 }
 
@@ -43,7 +44,7 @@ const {logNum, incrementNum} = makeFunctions();
 logNum(); // 0
 incrementNum(); // Incremented
 logNum(); // 1
-*/
+/* */
 
 
 for (let i = 0; i < 3; i++) { // let i = 0 is block scoped, so each iteration of the loop has its own 
