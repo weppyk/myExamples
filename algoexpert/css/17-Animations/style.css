@@ -1,0 +1,78 @@
+#animation {
+    background-color: lightblue;
+    width: 30%;
+    height: 3em;
+    border-radius: 12px;
+    padding: 12px;
+    margin: 4em;
+    /*transition-property: width;
+    transition-duration: 1s;
+    transition-timing-function: ease/*linear*/
+    /*transition-delay: 0.5s;*/
+    /* shorthand*/
+    transition: width 1s ease 0.5s,transform 1s ease 0s;
+}
+#animation:hover {
+    width: 50%;
+    transform: rotate(180deg);
+}
+
+/* Animation Keyframes */
+#animation2 {
+    background-color: lightblue;
+    text-align: center;
+    width: 30%;
+    height: 6em;
+    border-radius: 12px;
+    padding: 12px;
+    margin: 4em;
+    animation-name: mymove;
+    animation-duration: 4s;
+    animation-fill-mode: forwards;
+}
+#rotating {
+    text-align: center;
+    background-color: lightblue;
+    width: 3em;
+    height: 1em;
+    border-radius: 12px;
+    padding: 12px;
+    margin: 4em;
+    /* animation-name: rotate;
+    animation-duration: 4s;
+    animation-iteration-count: infinite;
+    animation-timing-function: steps(30, end); */
+    /* shorthand */
+    animation: rotate 4s infinite steps(30, end);
+    
+    transition: all 1s linear 0s;
+}
+#rotating:hover {
+    width: 12em;
+    height: 4em;
+    margin-left: 100px;
+}
+@keyframes rotate {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+@keyframes mymove {
+    from {
+        transform: translate(0px, 0px);
+        background-color: lightblue;
+    }
+
+    50% {
+        transform: translate(200px, 0px);
+    }
+    to {
+        transform: translate(200px, 200px);
+        background-color: lightgreen;
+        font-size: xx-large;    
+    }
+}

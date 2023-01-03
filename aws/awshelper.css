@@ -1,0 +1,12 @@
+:root {
+    --main-color: #00334c;
+    --main-font: 'Roboto', sans-serif;
+    --section-size: 200px;
+    --flex-gap: 12px;
+}
+body {
+    color: var(--main-color);
+    font-family: var(--main-font);
+    max-width: 40em;
+    margin: 0 auto;
+}
